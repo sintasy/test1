@@ -7,6 +7,17 @@ pipeline {
                 sh 'python3 --version'
             }
         }
+        stage('Timeouts and retry') {
+            steps {
+                retry(3) {
+                    echo 'retry step from Timeouts and retry stage'
+                }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    echo 'timeout step from Timeouts and retry stage'
+                }
+            }
+        }
     }
     post {
         always {

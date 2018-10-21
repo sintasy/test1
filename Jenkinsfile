@@ -5,18 +5,17 @@ pipeline {
         DB_ENGINE    = 'sqlite'
     }
     stages {
-        stage('test sh') {
+        stage('sh') {
             steps {
-                sh 'id -u'
                 sh 'python3 --version'
             }
         }
-        stage('test env') {
+        stage('env') {
             steps {
                 sh 'printenv'
             }
         }
-        stage('Timeouts and retry') {
+        stage('timeouts and retry') {
             steps {
                 retry(3) {
                     echo 'retry step from Timeouts and retry stage'
@@ -25,6 +24,11 @@ pipeline {
                 timeout(time: 3, unit: 'MINUTES') {
                     echo 'timeout step from Timeouts and retry stage'
                 }
+            }
+        }
+        stage('python') {
+            steps {
+                sh 'python3 ./app/hello.py'
             }
         }
     }

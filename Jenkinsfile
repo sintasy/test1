@@ -31,6 +31,12 @@ pipeline {
                 sh 'python3 ./app/hello.py'
             }
         }
+        stage('python tests') {
+            steps {
+                sh 'python3 py.test --junitxml results.xml ./tests/tests.py'
+            }
+        }
+        
     }
     post {
         always {

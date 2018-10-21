@@ -5,10 +5,15 @@ pipeline {
         DB_ENGINE    = 'sqlite'
     }
     stages {
-        stage('build') {
+        stage('test sh') {
             steps {
                 sh 'id -u'
                 sh 'python3 --version'
+            }
+        }
+        stage('test env') {
+            steps {
+                sh 'printenv'
             }
         }
         stage('Timeouts and retry') {
